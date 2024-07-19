@@ -16,6 +16,16 @@ pip install -r requirements.txt
 
 ## Usage
 
+(See the [test.py](test.py) file for The complete explanation.)
+
+### There are 3 ways to use the model:
+
+- Predicting image, with no heatmap, and using the default model.
+- Predicting image, with heatmap, and using the default model.
+- Predicting image, with heatmap, and using a custom model.
+
+### 1. Predicting image with no heatmap, and using the default model.
+
 ```python
 from detect_nudity import NudityDetection
 
@@ -27,12 +37,7 @@ result = detector.predict_image(image_path)
 print(result)
 ```
 
-The `predict_image` method returns a tuple with the following elements:
-
-- `is_nsfw`: A string indicating whether the image is NSFW or SFW.
-- `percentage_nudity`: A float indicating the confidence score of the prediction.
-
-An optional parameter `generate_heatmap` can be set to `True` to generate a heatmap of the image highlighting the areas that influenced the model the most in making the prediction.
+### 2. Predicting image with heatmap, and using the default model.
 
 ```python
 from detect_nudity import NudityDetection
@@ -45,22 +50,37 @@ result = detector.predict_image(image_path, generate_heatmap=True)
 print(result)
 ```
 
-When `generate_heatmap` is `True`, the method returns a tuple with the following elements:
+### 3. Predicting image with heatmap, and using a custom model.
+
+```python
+from detect_nudity import NudityDetection
+
+detector = NudityDetection()
+
+image_path = "path/to/image.jpg"
+model_path = "path/to/model"
+
+result = detector.predict_image(image_path, generate_heatmap=True, model_path=model_path)
+
+print(result)
+```
+
+The `predict_image` method returns a tuple with the following elements:
 
 - `is_nsfw`: A string indicating whether the image is NSFW or SFW.
 - `percentage_nudity`: A float indicating the confidence score of the prediction.
-- `hm_img`: A string indicating the path to the generated heatmap image.
-
-when `generate_heatmap` is `False`, the method returns a tuple with the following elements:
-
-- `is_nsfw`: A string indicating whether the image is NSFW or SFW.
-- `percentage_nudity`: A float indicating the confidence score of the prediction.
-- `hm_img`: None
+- `hm_img`: A heatmap image showing the areas of the image that the model thinks are NSFW. (Only available if `generate_heatmap` is set to `True`.)
 
 ## Additional Information
 
 - While running the model, the program checks if the model is present in the cache directory. If the model is not present, the program downloads the model from the Huggingface repo and saves it into the cache directory.
-- Huggingface model: [nudity-detection](https://huggingface.co/esvinj312/nudity-detection)
+- Huggingface model: [nudity_detection](https://huggingface.co/esvinj312/nudity-detection)
+
+## Fallacies
+
+- The model is not perfect and may not be able to detect nudity in all images.
+- The model may also generate false positives, i.e., it may detect nudity in images that do not contain nudity.
+- The model currently detects nudity very slowly, taking around 1 to 3 seconds per image.
 
 ## License
 

@@ -38,18 +38,26 @@ class NudityDetection:
         except Exception as e:
             return {'Error: ': 'Could not process image', 'Error': e}
 
-    def predict_image(self, image_path, generate_heatmap=False):
+    def predict_image(self, image_path, generate_heatmap=False, model_path=None):
         try:
-            processed_image = self.preprocess_image(image_path)
-            prediction = self.model.predict(processed_image)
+            if model_path:
+                self.model = tf.keras.models.load_model(model_path)
+
+            img_array = self.preprocess_image(image_path)
+            prediction = self.model.predict(img_array)
             percentage_nudity = prediction[0][0] * 100
             is_nsfw = 'NSFW' if percentage_nudity > 50 else 'SFW'
 
             hm_img = None
+
             if generate_heatmap:
                 hm_img = self.gen_heatmap(image_path)
 
-            return is_nsfw, percentage_nudity, hm_img
+                return is_nsfw, percentage_nudity, hm_img
+
+            else:
+                return is_nsfw, percentage_nudity, hm_img
+
         except Exception as e:
             return {'Error: ': 'Could not process image', 'Error': e}
 
