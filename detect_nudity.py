@@ -1,5 +1,4 @@
 import os
-import configparser
 from huggingface_hub import hf_hub_download
 import tensorflow as tf
 import numpy as np
@@ -12,20 +11,14 @@ class NudityDetection:
         self.model_repo = model_repo
         self.model_filename = model_filename
         self.target_size = target_size
-        self.token = self.read_token_from_config()
         self.model_path = self.download_model()
         self.model = tf.keras.models.load_model(self.model_path)
-
-    def read_token_from_config(self):
-        config = configparser.ConfigParser()
-        config.read('.config')
-        return config['DEFAULT']['HUGGING_FACE_TOKEN']
 
     def download_model(self):
         if not os.path.exists(self.model_filename):
             print("Downloading model...")
             model_path = hf_hub_download(
-                repo_id=self.model_repo, filename=self.model_filename, use_auth_token=self.token)
+                repo_id=self.model_repo, filename=self.model_filename)
             print(f"Model downloaded to {model_path}")
             return model_path
         else:
