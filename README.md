@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This is a simple nudity detector that uses a pre-trained model to detect nudity in images. The model is trained on a dataset of 25,000 images, with 12,500 images of NSFW images and 12,500 images of non-NSFW images. The model is trained using a Convolutional Neural Network (CNN) and has an accuracy of 85%.
+This is a simple nudity detector that uses a pre-trained model to detect nudity in images. The model is trained on a dataset of 5,000 images, with 2,500 images of NSFW images and 2,500 images of non-NSFW images. The model is trained using a Convolutional Neural Network (CNN) and has an accuracy of 85%.
 
 ## Installation
 
