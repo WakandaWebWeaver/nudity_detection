@@ -15,15 +15,18 @@ class NudityDetection:
         self.model = tf.keras.models.load_model(self.model_path)
 
     def download_model(self):
-        if not os.path.exists(self.model_filename):
-            print("Downloading model...")
-            model_path = hf_hub_download(
-                repo_id=self.model_repo, filename=self.model_filename)
-            print(f"Model downloaded to {model_path}")
+        try:
+            with open('self.model_filename') as f:
+                model_path = f.read()
             return model_path
-        else:
-            print("Model already exists.")
-            return self.model_filename
+        except:
+            model_path = hf_hub_download(
+                self.model_repo, filename=self.model_filename)
+
+            with open('self.model_filename', 'w') as f:
+                f.write(model_path)
+
+            return model_path
 
     def preprocess_image(self, image_path):
         try:
@@ -31,8 +34,9 @@ class NudityDetection:
             img_array = img_to_array(img) / 255.0
             img_array = np.expand_dims(img_array, axis=0)
             return img_array
+
         except Exception as e:
-            return {'Error: ': 'Could not process image', 'File': 'main.py'}
+            return {'Error: ': 'Could not process image', 'Error': e}
 
     def predict_image(self, image_path, generate_heatmap=False):
         try:
@@ -47,7 +51,7 @@ class NudityDetection:
 
             return is_nsfw, percentage_nudity, hm_img
         except Exception as e:
-            return {'Error: ': 'Could not process image', 'File': 'main.py'}
+            return {'Error: ': 'Could not process image', 'Error': e}
 
     def gen_heatmap(self, image_path):
         try:
@@ -56,7 +60,7 @@ class NudityDetection:
             cam_path = self.save_and_display_gradcam(image_path, heatmap)
             return cam_path
         except Exception as e:
-            return {'Error: ': 'Could not generate heatmap', 'File': 'heatmap.py'}
+            return {'Error: ': 'Could not process image', 'Error': e}
 
     def get_img_array(self, img_path, size):
         img = load_img(img_path, target_size=size)

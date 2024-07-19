@@ -1,5 +1,5 @@
 .DS_Store
-.DS_Store
 *.jpeg
 *.jpg
+/__pycache__
 *.model_filename
