@@ -17,7 +17,7 @@ pip install -r requirements.txt
 ## Usage
 
 ```python
-from nudity_detection import NudityDetection
+from detect_nudity import NudityDetection
 
 detector = NudityDetection()
 
@@ -35,7 +35,7 @@ The `predict_image` method returns a tuple with the following elements:
 An optional parameter `generate_heatmap` can be set to `True` to generate a heatmap of the image highlighting the areas that influenced the model the most in making the prediction.
 
 ```python
-from nudity_detection import NudityDetection
+from detect_nudity import NudityDetection
 
 detector = NudityDetection()
 
@@ -60,6 +60,7 @@ when `generate_heatmap` is `False`, the method returns a tuple with the followin
 ## Additional Information
 
 - While running the model, the program checks if the model is present in the cache directory. If the model is not present, the program downloads the model from the Huggingface repo and saves it into the cache directory.
+- Huggingface model: [nudity-detection](https://huggingface.co/esvinj312/nudity-detection)
 
 ## License
 
