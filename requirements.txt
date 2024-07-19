@@ -1,0 +1,4 @@
+configparser
+huggingface_hub
+tensorflow
+numpy

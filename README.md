@@ -8,10 +8,10 @@ This is a simple nudity detector that uses a pre-trained model to detect nudity 
 
 ## Installation
 
-To install the nudity detector, use the following command:
+To install, download the repository (or clone it) and run the following command:
 
 ```bash
-pip install nudity_detection
+pip install -r requirements.txt
 ```
 
 ## Usage
