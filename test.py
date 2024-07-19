@@ -35,10 +35,3 @@ print(result)
 # with NudityDetection(model_filename=model_path) as detector:
 #     result = detector.predict_image(image_path)
 #     print(result)
-
-# # Method 4: Using the class as a context manager with a custom model path and target size
-# model_path = "path/to/custom/model.h5"
-
-# with NudityDetection(model_filename=model_path, target_size=(256, 256)) as detector:
-#     result = detector.predict_image(image_path)
-#     print(result)
